@@ -53,16 +53,38 @@
             <h5>Pagamento via Pix</h5>
             <p>Para finalizar sua compra via Pix, escaneie o código QR abaixo ou copie o código Pix gerado.</p>
             <div id="qrcode" class="text-center"></div>
-            <p class="text-center">Código Pix: <strong id="pixCodeText">00020126360014BR.GOV.BCB.PIX</strong></p>
+            <p class="text-center">Código Pix: <strong id="pixCodeText">14999099300</strong></p>
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">Finalizar Pagamento</button>
     </form>
 </div>
 
+<!-- Modal para o comprovante -->
+<div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="receiptModalLabel">Comprovante de Pagamento Pix</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>ID da Transação:</strong> 123456789</p>
+                <p><strong>Valor:</strong> R$ 100,00</p>
+                <p><strong>Data:</strong> 17/09/2024</p>
+                <p><strong>Chave Pix:</strong>14999099300</p>
+                <p>Obrigado pela sua compra!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" onclick="printReceipt()">Imprimir Comprovante</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Biblioteca QRCode.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
@@ -92,7 +114,9 @@
             // Aqui você integraria a API de pagamento para processar o cartão
         } else if (paymentType === 'pix') {
             alert('Processando pagamento via Pix...');
-            // Aqui você integraria a API de pagamento para processar o Pix
+            // Exibe o comprovante ao concluir o pagamento via Pix
+            const receiptModal = new bootstrap.Modal(document.getElementById('receiptModal'));
+            receiptModal.show();
         } else {
             alert('Por favor, selecione um método de pagamento.');
         }
@@ -107,6 +131,11 @@
             width: 200,
             height: 200
         });
+    }
+
+    // Função para imprimir o comprovante
+    function printReceipt() {
+        window.print();
     }
 </script>
 
